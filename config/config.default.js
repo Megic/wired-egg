@@ -122,7 +122,7 @@ module.exports = app => {
   };
 
   config.passportJWT = {
-    jwtKey: 'iriscv_egg',
+    jwtKey: 'wiredmed_egg',
     options: {
       algorithm: 'HS256',
       expiresIn: 24 * 60 * 60, // 1 天
