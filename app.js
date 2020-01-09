@@ -87,6 +87,17 @@ class AppBootHook {
     }
 
     app.Controller = CustomController;
+    app.beforeStart(async function() {
+        // service首字母大写
+        for (const key in app.serviceClasses) {
+          if (app.serviceClasses.hasOwnProperty(key)) {
+            const newkey = key.replace(key[0], key[0].toUpperCase());
+            app.serviceClasses[newkey] = app.serviceClasses[key];
+            delete app.serviceClasses[key];
+          }
+        }
+        // 应用会等待这个函数执行完成才启动
+      });
     this.app = app;
   }
 
