@@ -32,25 +32,27 @@ class AppBootHook {
        * @param {string} data 返回数据
        */
       success(data) {
-        const cleanParam = R.ifElse(R.is(Object), R.omit([ 'created_at', 'updated_at', 'fullPath', 'pathName' ]), r => r);
+        //const cleanParam = R.ifElse(R.is(Object), R.omit([ 'created_at', 'updated_at', 'fullPath', 'pathName' ]), r => r);
         if (data && data.toJSON) { // a sequelize instance
           data = data.toJSON();
         }
-        if (data && data.rows) {
-          if (data.rows instanceof Array) {
-            data.rows = data.rows.map(r => {
-              if (r.toJSON) { r = r.toJSON(); }
-              return cleanParam(r);
-            });
-          }
-        } else {
-          if (data instanceof Object) {
-            data = cleanParam(data);
-          }
-        }
+        // if (data && data.rows) {
+        //   if (data.rows instanceof Array) {
+        //     data.rows = data.rows.map(r => {
+        //       if (r.toJSON) { r = r.toJSON(); }
+        //       return cleanParam(r);
+        //     });
+        //   }
+        // } else {
+        //   if (data instanceof Object) {
+        //     data = cleanParam(data);
+        //   }
+        // }
+        const timestamp = new Date.getTime()
         this.ctx.body = {
           error: 0,
           data,
+          timestamp
         };
       }
       /**
@@ -59,9 +61,11 @@ class AppBootHook {
        * @param {string} data 返回数据
        */
       error(error, data) {
+        const timestamp = new Date.getTime()
         this.ctx.body = {
           error,
           data,
+          timestamp
         };
       }
       /**
@@ -100,9 +104,9 @@ class AppBootHook {
         if (!token) return false;
         if ((new Date()).getTime() > token.expireTime) return false;
         const user = await cache.wrap(`userInfo_${userId}`, async () => {
-          let res = await ctx.repository.User.findOne({
+          let res = await ctx.repository.IUUser.findOne({
             include: [{
-              model: ctx.repository.UserGroup,
+              model: ctx.repository.IUUserGroup,
             }],
             where: { id: userId },
           });

@@ -88,7 +88,7 @@ const helper = {
    * @return {object} 返回用户对象
    */
   async buildCustomerInfo(userId) {
-    const user = await this.ctx.repository.User.findById(userId);
+    const user = await this.ctx.repository.IUUser.findById(userId);
     let userRaw = user.toJSON();
     userRaw = helper.infoFilter(userRaw);
     if (this.ctx.user && userId === this.ctx.user.id) {

@@ -12,8 +12,8 @@ module.exports = app => {
       if (username) where.username = username;
       if (phone) where.phone = phone;
       const cache = app.cache.get(app.config.cache.defaultClient);
-      const user = await ctx.repository.User.findOne({ include: [{
-        model: ctx.repository.UserGroup,
+      const user = await ctx.repository.IUUser.findOne({ include: [{
+        model: ctx.repository.IUUserGroup,
       }], where });
       if (user && user.status === 1) {
         if (await bcrypt.compare(password, user.password)) {
@@ -38,8 +38,8 @@ module.exports = app => {
     async tokenWechat(openid) {
       const { ctx } = this;
       const cache = app.cache.get(app.config.cache.defaultClient);
-      const user = await ctx.repository.User.findOne({ include: [{
-        model: ctx.repository.UserGroup,
+      const user = await ctx.repository.IUUser.findOne({ include: [{
+        model: ctx.repository.IUUserGroup,
       }], where: { openid } });
       if (user && user.status === 1) {
         user.lastLoginTime = user.loginTime ? user.loginTime : new Date();
@@ -82,7 +82,7 @@ module.exports = app => {
     async revoke(id) {
       const { ctx } = this;
       const cache = app.cache.get(app.config.cache.defaultClient);
-      const user = await ctx.repository.User.findById(id);
+      const user = await ctx.repository.IUUser.findById(id);
       if (user && user.status === 1) {
         await cache.set(`userTokens_${user.id}`, []);
         app.messenger.sendToApp('cache-set', { key: `userTokens_${user.id}`, value: [] });

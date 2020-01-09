@@ -1,18 +1,18 @@
-# iris-egg
+# wired-egg
 
-iriscv egg framework
-
+wired egg framework
+for from iris-egg 升级sequlize等版本
 ## QuickStart
 
 ```bash
-$ npm install iris-egg
+$ npm install wired-egg
 ```
 
 change app's dependencies:
 
 ```js
 // {app_root}/index.js
-require('iris-egg').startCluster({
+require('wired-egg').startCluster({
   baseDir: __dirname,
   // port: 7001, // default to 7001
 });

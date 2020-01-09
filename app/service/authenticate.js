@@ -42,14 +42,14 @@ module.exports = app => {
       // get policyTemplates of all user's userGroup and user.
       let templateIds = [];
       const userPolicyIds = await cache.wrap(`userPolicyIds_${ctx.user.id}`, async () => {
-        const user = await ctx.repository.User.findById(ctx.user.id);
+        const user = await ctx.repository.IUUser.findById(ctx.user.id);
         const policies = await user.getAuthPolicies();
         return policies.map(policy => policy.id);
       });
       templateIds = templateIds.concat(userPolicyIds);
       const policyPromises = ctx.user.userGroupIds.map(async userGroupId => {
         const userGroupPolicyIds = await cache.wrap(`userGroupPolicyIds_${userGroupId}`, async () => {
-          const userGroup = await ctx.repository.UserGroup.findById(userGroupId);
+          const userGroup = await ctx.repository.IUUserGroup.findById(userGroupId);
           if (!userGroup) return [];
           const policies = await userGroup.getAuthPolicies();
           return policies.map(policy => policy.id);
@@ -62,7 +62,7 @@ module.exports = app => {
       const promises = policyTemplateIds.map(async policyTemplateId => {
         const authPolicy = await cache.wrap(`authPolicy_${policyTemplateId}`, async () => {
           // build casbin
-          const policyTemplate = await ctx.repository.AuthPolicy.findById(policyTemplateId);
+          const policyTemplate = await ctx.repository.IUAuthPolicy.findById(policyTemplateId);
           try {
             const template = JSON.parse(policyTemplate.template);
             if (!template) return '';

@@ -17,18 +17,18 @@ describe('plugin: repository', () => {
 
   it('should found repository in ctx', () => {
     const ctx = app.mockContext();
-    assert(ctx.repository.User);
+    assert(ctx.repository.IUUser);
   });
 
   it('should get sequelize repository if class getType is sequelizeModel', () => {
     const ctx = app.mockContext();
-    assert(ctx.repository.User.getType() === 'sequelizeModel');
-    assert(ctx.repository.User.findOne);
+    assert(ctx.repository.IUUser.getType() === 'sequelizeModel');
+    assert(ctx.repository.IUUser.findOne);
   });
 
   it('should get adapter repository if class getType is adapter', () => {
     const ctx = app.mockContext();
-    assert(ctx.repository.FileAttachment.getType() === 'adapter');
+    assert(ctx.repository.IUFileAttachment.getType() === 'adapter');
   });
 });
 
