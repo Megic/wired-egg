@@ -48,7 +48,7 @@ class AppBootHook {
         //     data = cleanParam(data);
         //   }
         // }
-        const timestamp = new Date.getTime()
+        const timestamp = new Date().getTime()/1000
         this.ctx.body = {
           error: 0,
           data,
@@ -61,7 +61,7 @@ class AppBootHook {
        * @param {string} data 返回数据
        */
       error(error, data) {
-        const timestamp = new Date.getTime()
+        const timestamp = new Date().getTime()/1000
         this.ctx.body = {
           error,
           data,
