@@ -1,7 +1,7 @@
 {
-  "name": "iris-egg",
+  "name": "wired-egg",
   "version": "2.0.0",
-  "description": "iriscv egg framework",
+  "description": "wired egg framework",
   "dependencies": {
     "@hapi/joi": "^15.1.1",
     "atob": "^2.0.3",
@@ -68,13 +68,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/relzhong/iris-egg"
+    "url": "https://github.com/Megic/wired-egg"
   },
   "keywords": [
     "egg",
     "egg-framework"
   ],
-  "author": "relzhong",
+  "author": "Megic",
   "files": [
     "index.js",
     "lib",
