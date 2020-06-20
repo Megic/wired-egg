@@ -4,7 +4,7 @@ const R = require('ramda');
 
 module.exports = app => {
   const uuidv4 = require('uuid/v4');
-  const bcrypt = require('bcrypt');
+  const bcrypt = require('bcryptjs');
   class Authorize extends app.Service {
     async token(username, password, phone) {
       const { ctx } = this;
